@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+ <sqlMap namespace="coupons" >
+
+    <!-- ======================================================================== 
+      COMMON （别名、resultMap、查询字段、sql...）
+    ========================================================================= -->
+    <typeAlias alias="coupons" type="com.carme.car.bo.coupons.coupons" />
+    <typeAlias alias="couponsVo" type="com.carme.car.vo.coupons.couponsVo" />
+    <typeAlias alias="queryCouponsVo" type="com.carme.car.vo.coupons.QueryCouponsVo" />
+    
+    <resultMap id="BaseResultMap" class="coupons">
+        <result column="id" property="id" />
+        <result column="p_store_id" property="storeId" />
+        <result column="name" property="name" />
+        <result column="batch_no" property="batchNo" />
+        <result column="coupons_type" property="couponsType" />
+        <result column="service_type" property="serviceType" />
+        <result column="money" property="money" />
+        <result column="coupon_limit_price" property="couponLimitPrice" />
+        <result column="use_limit_price" property="useLimitPrice" />
+        <result column="discount" property="discount" />
+        <result column="effective_time" property="effectiveTime" />
+        <result column="expire_time" property="expireTime" />
+        <result column="number" property="number" />
+        <result column="drawed_num" property="drawedNum" />
+        <result column="used_num" property="usedNum" />
+        <result column="per_limit" property="perLimit" />
+        <result column="status" property="status" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_at" property="createdAt" />
+        <result column="changed_by" property="changedBy" />
+        <result column="changed_at" property="changedAt" />
+    </resultMap>
+    
+    <resultMap id="voResultMap" class="couponsVo">
+        <result column="id" property="id" />
+        <result column="p_store_id" property="storeId" />
+        <result column="name" property="name" />
+        <result column="batch_no" property="batchNo" />
+        <result column="coupons_type" property="couponsType" />
+        <result column="service_type" property="serviceType" />
+        <result column="money" property="money" />
+        <result column="coupon_limit_price" property="couponLimitPrice" />
+        <result column="use_limit_price" property="useLimitPrice" />
+        <result column="discount" property="discount" />
+        <result column="effective_time" property="effectiveTime" />
+        <result column="expire_time" property="expireTime" />
+        <result column="number" property="number" />
+        <result column="drawed_num" property="drawedNum" />
+        <result column="used_num" property="usedNum" />
+        <result column="per_limit" property="perLimit" />
+        <result column="status" property="status" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_at" property="createdAt" />
+        <result column="changed_by" property="changedBy" />
+        <result column="changed_at" property="changedAt" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+       <![CDATA[
+        	id ,
+        	p_store_id ,
+        	name ,
+        	batch_no ,
+        	coupons_type ,
+        	service_type ,
+        	money ,
+        	coupon_limit_price ,
+        	use_limit_price ,
+        	discount ,
+        	effective_time ,
+        	expire_time ,
+        	number ,
+        	drawed_num ,
+        	used_num ,
+        	per_limit ,
+        	status ,
+        	created_by ,
+        	created_at ,
+        	changed_by ,
+        	changed_at 
+	    ]]>
+    </sql>
+    
+    
+    <!-- ======================================================================== 
+      SELECT 
+    ========================================================================= -->
+    <!--根据ID查询记录-->
+    <select id="getById" resultMap="BaseResultMap" parameterClass="java.lang.Long" >
+      select 
+      <include refid="Base_Column_List" />
+      <![CDATA[
+      from e_coupons
+      where id = #id#
+      and id != 0
+      ]]>
+    </select>
+	
+	<!--通过Ids查询多条记录-->
+	<select id="getByIds" resultMap="BaseResultMap" parameterClass="coupons">
+	   select <include refid="Base_Column_List"/>
+	   from e_coupons where is_delete = 0 and id in
+	   <iterate property="codes" open="(" close=")" conjunction=",">#codes[]#</iterate>  
+	</select>
+    
+    <!-- ======================================================================== 
+      DELETE 
+    ========================================================================= -->
+    <!--删除（物理）-->
+    <delete id="del" parameterClass="java.lang.Long" >
+      <![CDATA[
+      delete from e_coupons
+      where id = #id#
+      ]]>
+    </delete>
+    
+
+    <!-- ======================================================================== 
+      INSERT 
+    ========================================================================= -->
+    <!--保存-->
+    <insert id="save" parameterClass="coupons" >
+      insert into e_coupons
+        <dynamic prepend="(" >
+            <isNotNull prepend="," property="id" >
+        	id 
+        	</isNotNull>
+            <isNotNull prepend="," property="storeId" >
+        	p_store_id 
+        	</isNotNull>
+            <isNotNull prepend="," property="name" >
+        	name 
+        	</isNotNull>
+            <isNotNull prepend="," property="batchNo" >
+        	batch_no 
+        	</isNotNull>
+            <isNotNull prepend="," property="couponsType" >
+        	coupons_type 
+        	</isNotNull>
+            <isNotNull prepend="," property="serviceType" >
+        	service_type 
+        	</isNotNull>
+            <isNotNull prepend="," property="money" >
+        	money 
+        	</isNotNull>
+            <isNotNull prepend="," property="couponLimitPrice" >
+        	coupon_limit_price 
+        	</isNotNull>
+            <isNotNull prepend="," property="useLimitPrice" >
+        	use_limit_price 
+        	</isNotNull>
+            <isNotNull prepend="," property="discount" >
+        	discount 
+        	</isNotNull>
+            <isNotNull prepend="," property="effectiveTime" >
+        	effective_time 
+        	</isNotNull>
+            <isNotNull prepend="," property="expireTime" >
+        	expire_time 
+        	</isNotNull>
+            <isNotNull prepend="," property="number" >
+        	number 
+        	</isNotNull>
+            <isNotNull prepend="," property="drawedNum" >
+        	drawed_num 
+        	</isNotNull>
+            <isNotNull prepend="," property="usedNum" >
+        	used_num 
+        	</isNotNull>
+            <isNotNull prepend="," property="perLimit" >
+        	per_limit 
+        	</isNotNull>
+            <isNotNull prepend="," property="status" >
+        	status 
+        	</isNotNull>
+            <isNotNull prepend="," property="createdBy" >
+        	created_by 
+        	</isNotNull>
+            <isNotNull prepend="," property="createdAt" >
+        	created_at 
+        	</isNotNull>
+            <isNotNull prepend="," property="changedBy" >
+        	changed_by 
+        	</isNotNull>
+            <isNotNull prepend="," property="changedAt" >
+        	changed_at 
+        	</isNotNull>
+        )
+        </dynamic>
+         VALUES 
+        <dynamic prepend="(" >
+            <isNotNull prepend="," property="id" >
+        	<![CDATA[ #id#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="storeId" >
+        	<![CDATA[ #storeId#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="name" >
+        	<![CDATA[ #name#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="batchNo" >
+        	<![CDATA[ #batchNo#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="couponsType" >
+        	<![CDATA[ #couponsType#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="serviceType" >
+        	<![CDATA[ #serviceType#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="money" >
+        	<![CDATA[ #money#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="couponLimitPrice" >
+        	<![CDATA[ #couponLimitPrice#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="useLimitPrice" >
+        	<![CDATA[ #useLimitPrice#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="discount" >
+        	<![CDATA[ #discount#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="effectiveTime" >
+        	<![CDATA[ #effectiveTime#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="expireTime" >
+        	<![CDATA[ #expireTime#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="number" >
+        	<![CDATA[ #number#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="drawedNum" >
+        	<![CDATA[ #drawedNum#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="usedNum" >
+        	<![CDATA[ #usedNum#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="perLimit" >
+        	<![CDATA[ #perLimit#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="status" >
+        	<![CDATA[ #status#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="createdBy" >
+        	<![CDATA[ #createdBy#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="createdAt" >
+        	<![CDATA[ #createdAt#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="changedBy" >
+        	<![CDATA[ #changedBy#]]>
+        	</isNotNull>
+            <isNotNull prepend="," property="changedAt" >
+        	<![CDATA[ #changedAt#]]>
+        	</isNotNull>
+        )     
+        </dynamic>
+         
+      <selectKey resultClass="java.lang.Long" keyProperty="id">
+			SELECT LAST_INSERT_ID() as id
+	  </selectKey>
+    </insert>
+    
+    <!-- ======================================================================== 
+      UPDATE 
+    ========================================================================= -->
+    <!--更新-->
+    <update id="update" parameterClass="coupons">
+      update e_coupons
+      <dynamic prepend="set" >
+        <isNotNull prepend="," property="id" >
+          <![CDATA[ id = #id# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="storeId" >
+          <![CDATA[ p_store_id = #storeId# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="name" >
+          <![CDATA[ name = #name# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="batchNo" >
+          <![CDATA[ batch_no = #batchNo# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="couponsType" >
+          <![CDATA[ coupons_type = #couponsType# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="serviceType" >
+          <![CDATA[ service_type = #serviceType# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="money" >
+          <![CDATA[ money = #money# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="couponLimitPrice" >
+          <![CDATA[ coupon_limit_price = #couponLimitPrice# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="useLimitPrice" >
+          <![CDATA[ use_limit_price = #useLimitPrice# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="discount" >
+          <![CDATA[ discount = #discount# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="effectiveTime" >
+          <![CDATA[ effective_time = #effectiveTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="expireTime" >
+          <![CDATA[ expire_time = #expireTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="number" >
+          <![CDATA[ number = #number# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="drawedNum" >
+          <![CDATA[ drawed_num = #drawedNum# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="usedNum" >
+          <![CDATA[ used_num = #usedNum# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="perLimit" >
+          <![CDATA[ per_limit = #perLimit# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="status" >
+          <![CDATA[ status = #status# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="createdBy" >
+          <![CDATA[ created_by = #createdBy# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="createdAt" >
+          <![CDATA[ created_at = #createdAt# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="changedBy" >
+          <![CDATA[ changed_by = #changedBy# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="changedAt" >
+          <![CDATA[ changed_at = #changedAt# ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+      where id = #id#
+      ]]>
+    </update>
+    
+    <!--单条删除（逻辑）-->
+    <update id="logicDel" parameterClass="java.lang.Long">
+      <![CDATA[
+      update e_coupons
+      set is_delete = 1
+      where id = #id#
+       ]]>
+    </update>
+    
+     <!--批量删除（逻辑）-->
+     <update id="delBatch" parameterClass="couponsVo">
+      update e_coupons
+      set is_delete = 1
+      where id in
+      <iterate property="codes" open="(" close=")" conjunction=",">#codes[]#</iterate>
+    </update>
+    
+  </sqlMap>
