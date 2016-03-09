@@ -1,16 +1,17 @@
 <#include "/custom.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
-package ${basePackage}.service.${table.sqlName?split("_")[1]}.impl;
+package ${basePackage}.${table.sqlName?split("_")[1]}.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
-import ${basePackage}.dao.${table.sqlName?split("_")[1]}.${className}Dao;
-import ${basePackage}.service.${table.sqlName?split("_")[1]}.${className}Service;
+import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
+import ${basePackage}.dao.${className}Dao;
+import ${basePackage}.${table.sqlName?split("_")[1]}.${className}Service;
 
-@Repository
+@Service
 public class ${className}ServiceImpl implements ${className}Service {
 
 	@Autowired
@@ -59,6 +60,11 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Override
     public void logicDelById(Long[] ids) {
         ${classNameLower}Dao.logicDelById(ids);
+    }
+
+    @Override
+    public List<${className}> query(${className}Vo record) {
+        return ${classNameLower}Dao.query(record);
     }
 
 }

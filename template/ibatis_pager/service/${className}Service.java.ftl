@@ -1,13 +1,14 @@
 <#include "/custom.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
-package ${basePackage}.service.${table.sqlName?split("_")[1]};
+package ${basePackage}.${table.sqlName?split("_")[1]};
 
 
 
 import java.util.List;
 
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
+import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
 
 
 public interface ${className}Service {
@@ -80,4 +81,13 @@ public interface ${className}Service {
      * @param ids
      */
     void logicDelById(Long[] ids);
+
+    /**
+    *
+    * @Description: 多条件组合查询
+    * @param record
+    * @return
+    */
+    List<${className}> query(${className}Vo record);
+
 }
