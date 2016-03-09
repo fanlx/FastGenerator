@@ -7,10 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
+import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
 import ${basePackage}.dao.${className}Dao;
 import ${basePackage}.${table.sqlName?split("_")[1]}.${className}Service;
 
-@Repository
+@Service
 public class ${className}ServiceImpl implements ${className}Service {
 
 	@Autowired
@@ -59,6 +60,11 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Override
     public void logicDelById(Long[] ids) {
         ${classNameLower}Dao.logicDelById(ids);
+    }
+
+    @Override
+    public List<${className}> query(${className}Vo record) {
+        return ${classNameLower}Dao.query(record);
     }
 
 }
