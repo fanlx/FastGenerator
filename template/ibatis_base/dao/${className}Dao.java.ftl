@@ -24,4 +24,12 @@ public interface ${className}Dao extends BaseDao<Long, ${className}>{
 	 */
 	List<${className}> getByIds(${className}Vo record);
 
+	/**
+	*
+	* @Description: 多条件组合查询
+	* @param record
+	* @return
+	*/
+	List<${className}> query(${className}Vo record);
+
 }

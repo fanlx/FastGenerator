@@ -54,7 +54,19 @@
 	   from ${table.sqlName} where is_delete = 0 and <#list table.columns as column><#if column.pk>${column.sqlName}</#if></#list> in
 	   <iterate property="codes" open="(" close=")" conjunction=",">#codes[]#</iterate>  
 	</select>
-    
+
+    <!--多条件组合查询-->
+    <select id="query" resultMap="BaseResultMap" parameterClass="${classNameLower}Vo">
+        select <include refid="Base_Column_List"/>
+        from ${table.sqlName} where is_delete = 0
+        <dynamic>
+            <#list table.columns as column>
+            <isNotEmpty property="${column.columnNameLower}" prepend="and">
+                <![CDATA[ = #${column.columnNameLower}# ]]>
+            </isNotEmpty>
+            </#list>
+        </dynamic>
+    </select>
     <!-- ======================================================================== 
       DELETE 
     ========================================================================= -->

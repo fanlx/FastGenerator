@@ -25,4 +25,9 @@ public class ${className}DaoImpl extends CarBaseDaoImpl<Long, ${className}> impl
 		return queryForList(getNameSpace("getByIds"), record);
 	}
 
+	@Override
+	public List<${className}> query(${className}Vo record) {
+		return queryForList(getNameSpace("query"), record);
+	}
+
 }
