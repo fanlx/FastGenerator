@@ -62,7 +62,7 @@
         <dynamic>
             <#list table.columns as column>
             <isNotEmpty property="${column.columnNameLower}" prepend="and">
-                <![CDATA[ = #${column.columnNameLower}# ]]>
+                <![CDATA[ ${column.sqlName} = #${column.columnNameLower}# ]]>
             </isNotEmpty>
             </#list>
         </dynamic>
