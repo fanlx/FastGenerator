@@ -31,7 +31,7 @@ public class ${className} implements Serializable {
 	/**
 	 * ${column.columnAlias}
 	 */
-	private String <@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>;
+	private String ${column.columnNameLower};
 	<#elseif column.javaType == "java.util.Date">
 	
 	/**
@@ -43,13 +43,13 @@ public class ${className} implements Serializable {
 	/**
 	 * ${column.columnAlias}
 	 */
-	private Long <@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>;
+	private Long ${column.columnNameLower};
 	<#elseif column.javaType == "java.lang.Integer">
 	
 	/**
 	 * ${column.columnAlias}
 	 */
-	private Integer  <@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>;
+	private Integer  ${column.columnNameLower};
 	<#else>
 	
 	/**
