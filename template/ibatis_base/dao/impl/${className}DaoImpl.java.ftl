@@ -1,14 +1,14 @@
 <#include "/custom.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
-package ${basePackage}.dao.impl;
+package ${basePackage}.dao.${table.sqlName?split("_")[1]}.impl;
 
 import org.springframework.stereotype.Repository;
 
 import com.carme.platform.dao.impl.CarBaseDaoImpl;
 import java.util.List;
 import  ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
-import  ${basePackage}.dao.${className}Dao;
+import  ${basePackage}.dao.${table.sqlName?split("_")[1]}.${className}Dao;
 import  ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
 
 @Repository

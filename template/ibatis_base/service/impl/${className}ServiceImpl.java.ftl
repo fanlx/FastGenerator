@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
-import ${basePackage}.dao.${className}Dao;
+import ${basePackage}.dao.${table.sqlName?split("_")[1]}.${className}Dao;
 import ${basePackage}.${table.sqlName?split("_")[1]}.${className}Service;
 
 @Service
