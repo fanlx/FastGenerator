@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
+import ${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo;
 import ${basePackage}.dao.${className}Dao;
 import ${basePackage}.${table.sqlName?split("_")[1]}.${className}Service;
+import com.carme.platform.base.vo.SimplePageVo;
 
 @Service
 public class ${className}ServiceImpl implements ${className}Service {
@@ -65,6 +67,12 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Override
     public List<${className}> query(${className}Vo record) {
         return ${classNameLower}Dao.query(record);
+    }
+
+    @Override
+    public SimplePageVo<${className}Vo> query${className}Page(
+        Query${className}Vo param) {
+        return ${classNameLower}Dao.query${className}Page(param);
     }
 
 }

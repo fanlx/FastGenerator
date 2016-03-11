@@ -8,6 +8,7 @@ package ${basePackage}.dao.${table.sqlName?split("_")[1]};
 import java.util.List;
 
 import com.carme.platform.base.vo.SimplePageVo;
+import com.carme.platform.base.dao.BaseDao;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo;
@@ -30,6 +31,14 @@ public interface ${className}Dao extends BaseDao<Long, ${className}>{
 	 * @param record
 	 * @return
 	 */
-	List<${className}> selectByIds(${className}Vo record);
+	List<${className}> getByIds(${className}Vo record);
+
+    /**
+    *
+    * @Description: 多条件组合查询
+    * @param record
+    * @return
+    */
+    List<${className}> query(${className}Vo record);
 
 }

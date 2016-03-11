@@ -9,6 +9,8 @@ import java.util.List;
 
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
+import ${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo;
+import com.carme.platform.base.vo.SimplePageVo;
 
 
 public interface ${className}Service {
@@ -89,5 +91,13 @@ public interface ${className}Service {
     * @return
     */
     List<${className}> query(${className}Vo record);
+
+    /**
+    * 分页查找
+    *
+    * @param param
+    * @return
+    */
+    SimplePageVo<${className}Vo> query${className}Page(Query${className}Vo param);
 
 }

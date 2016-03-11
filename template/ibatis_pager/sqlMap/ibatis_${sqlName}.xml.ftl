@@ -15,13 +15,13 @@
 
     <resultMap id="BaseResultMap" class="${classNameLower}">
     <#list table.columns as column>
-        <result column="${column.sqlName}" property="<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>" />
+        <result column="${column.sqlName}" property="${column.columnNameLower}" />
     </#list>
     </resultMap>
 
     <resultMap id="voResultMap" class="${classNameLower}Vo">
     <#list table.columns as column>
-        <result column="${column.sqlName}" property="<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>" />
+        <result column="${column.sqlName}" property="${column.columnNameLower}" />
     </#list>
     </resultMap>
 
@@ -104,7 +104,7 @@
       insert into ${table.sqlName}
         <dynamic prepend="(" >
         <#list table.columns as column>
-            <isNotNull prepend="," property="<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>" >
+            <isNotNull prepend="," property="${column.columnNameLower}" >
         	${column.sqlName} 
         	</isNotNull>
         </#list>
@@ -113,8 +113,8 @@
          VALUES 
         <dynamic prepend="(" >
         <#list table.columns as column>
-            <isNotNull prepend="," property="<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>" >
-        	<![CDATA[ #<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>#  ]]>
+            <isNotNull prepend="," property="${column.columnNameLower}" >
+        	<![CDATA[ #${column.columnNameLower}#  ]]>
         	</isNotNull>
         </#list>   
         )     
@@ -133,8 +133,8 @@
       update ${table.sqlName}
       <dynamic prepend="set" >
         <#list table.columns as column>
-        <isNotNull prepend="," property="<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/>" >
-          <![CDATA[ ${column.sqlName} = #<@filter prefix_arr=prefix sql_value=column.sqlName value=column.columnNameLower uppercase=false/># ]]>
+        <isNotNull prepend="," property="${column.columnNameLower}" >
+          <![CDATA[ ${column.sqlName} = #${column.columnNameLower}# ]]>
         </isNotNull>
         </#list>
       </dynamic>
