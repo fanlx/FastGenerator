@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ${basePackage}.bo.${table.sqlName?split("_")[1]}.${className};
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo;
 import ${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo;
-import ${basePackage}.dao.${className}Dao;
+import ${basePackage}.dao.${table.sqlName?split("_")[1]}.${className}Dao;
 import ${basePackage}.${table.sqlName?split("_")[1]}.${className}Service;
 import com.carme.platform.base.vo.SimplePageVo;
 

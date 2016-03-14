@@ -9,8 +9,8 @@
     <!-- ======================================================================== 
       COMMON （别名、resultMap、查询字段、sql...）
     ========================================================================= -->
-    <typeAlias alias="${classNameLower}" type="${basePackage}.bo.${table.sqlName?split("_")[1]}.${classNameLower}" />
-    <typeAlias alias="${classNameLower}Vo" type="${basePackage}.vo.${table.sqlName?split("_")[1]}.${classNameLower}Vo" />
+    <typeAlias alias="${classNameLower}" type="${basePackage}.bo.${table.sqlName?split("_")[1]}.${className}" />
+    <typeAlias alias="${classNameLower}Vo" type="${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo" />
     <typeAlias alias="query${className}Vo" type="${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo" />
 
     <resultMap id="BaseResultMap" class="${classNameLower}">
@@ -83,8 +83,20 @@
 	   from ${table.sqlName} where is_delete = 0 and <#list table.columns as column><#if column.pk>${column.sqlName}</#if></#list> in
 	   <iterate property="codes" open="(" close=")" conjunction=",">#codes[]#</iterate>  
 	</select>
-    
-    <!-- ======================================================================== 
+
+    <!--多条件组合查询-->
+    <select id="query" resultMap="BaseResultMap" parameterClass="${classNameLower}Vo">
+        select <include refid="Base_Column_List"/>
+        from ${table.sqlName} where is_delete = 0
+        <dynamic>
+        <#list table.columns as column>
+            <isNotEmpty property="${column.columnNameLower}" prepend="and">
+                <![CDATA[ ${column.sqlName} = #${column.columnNameLower}# ]]>
+            </isNotEmpty>
+        </#list>
+        </dynamic>
+    </select>
+    <!-- ========================================================================
       DELETE 
     ========================================================================= -->
     <!--删除（物理）-->
