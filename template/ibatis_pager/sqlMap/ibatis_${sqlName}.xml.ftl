@@ -145,9 +145,11 @@
       update ${table.sqlName}
       <dynamic prepend="set" >
         <#list table.columns as column>
+            <#if !column.pk>
         <isNotNull prepend="," property="${column.columnNameLower}" >
           <![CDATA[ ${column.sqlName} = #${column.columnNameLower}# ]]>
         </isNotNull>
+            </#if>
         </#list>
       </dynamic>
       <![CDATA[
