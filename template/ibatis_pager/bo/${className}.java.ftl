@@ -4,7 +4,7 @@
 package ${basePackage}.bo.${table.sqlName?split("_")[1]};
 
 import java.io.Serializable;
-
+import java.util.Date;
 /**
  * 
  * @ClassName: ${className}
@@ -58,6 +58,11 @@ public class ${className} implements Serializable {
 	private ${column.javaType} ${column.columnNameLower};
 	</#if>
 	</#list>
+
+	public ${className}(){
+		this.isDelete=0;
+		this.createdAt=new Date();
+	}
 
 
 
