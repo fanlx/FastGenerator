@@ -26,7 +26,7 @@ public class GeneratorUtil {
             className = table.getClassName();
             if(sqlName.split("_")[0].equals(prefix)){
                 //添加car前缀
-                table.setClassName("Car"+StringUtil.captureName(className.replaceFirst(StringUtil.captureName(prefix),"")));
+                table.setClassName(StringUtil.captureName(className.replaceFirst(StringUtil.captureName(prefix),"")));
                 //对应字段映射去除相应的前缀
                 removeColumnPrefix(table.getColumns(),prefixArr);
             }
