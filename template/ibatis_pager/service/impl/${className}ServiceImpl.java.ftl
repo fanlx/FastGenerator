@@ -26,6 +26,10 @@ public class ${className}ServiceImpl implements ${className}Service {
 
     @Override
     public Long save(${className} entity) {
+        entity.setCreatedAt(new Date());
+        if (StringUtil.isEmpty(entity.getCreatedBy())) {
+             throw new RuntimeException("createdBy is null");
+        }
         return ${classNameLower}Dao.save(entity);
     }
 
@@ -36,6 +40,10 @@ public class ${className}ServiceImpl implements ${className}Service {
 
     @Override
     public int update(${className} entity) {
+        entity.setChangedAt(new Date());
+        if (StringUtil.isEmpty(entity.getChangedBy())) {
+                throw new RuntimeException("changeBy is null");
+        }
         return ${classNameLower}Dao.update(entity);
     }
 
