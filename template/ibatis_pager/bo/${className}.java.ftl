@@ -59,10 +59,6 @@ public class ${className} implements Serializable {
 	</#if>
 	</#list>
 
-	public ${className}(){
-		this.isDelete=0;
-		this.createdAt=new Date();
-	}
 
 
 
