@@ -78,7 +78,7 @@
 	</select>
 	
 	<!--通过Ids查询多条记录-->
-	<select id="getByIds" resultMap="BaseResultMap" parameterClass="${className}">
+	<select id="getByIds" resultMap="BaseResultMap" parameterClass="${classNameLower}">
 	   select <include refid="Base_Column_List"/>
 	   from ${table.sqlName} where is_delete = 0 and <#list table.columns as column><#if column.pk>${column.sqlName}</#if></#list> in
 	   <iterate property="codes" open="(" close=")" conjunction=",">#codes[]#</iterate>  
