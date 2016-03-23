@@ -12,27 +12,40 @@
     <typeAlias alias="${classNameLower}" type="${basePackage}.bo.${table.sqlName?split("_")[1]}.${className}" />
     <typeAlias alias="${classNameLower}Vo" type="${basePackage}.vo.${table.sqlName?split("_")[1]}.${className}Vo" />
     <typeAlias alias="query${className}Vo" type="${basePackage}.vo.${table.sqlName?split("_")[1]}.Query${className}Vo" />
-    
+
     <resultMap id="BaseResultMap" class="${classNameLower}">
-        <#list table.columns as column>
+    <#list table.columns as column>
         <result column="${column.sqlName}" property="${column.columnNameLower}" />
-		</#list>
+    </#list>
     </resultMap>
-    
+
     <resultMap id="voResultMap" class="${classNameLower}Vo">
-        <#list table.columns as column>
+    <#list table.columns as column>
         <result column="${column.sqlName}" property="${column.columnNameLower}" />
-		</#list>
+    </#list>
     </resultMap>
-    
+
     <sql id="Base_Column_List" >
-       <![CDATA[
+        <![CDATA[
         <#list table.columns as column>
-        	${column.sqlName} <#if column_has_next>,</#if>
+              ${column.sqlName} <#if column_has_next>,</#if>
         </#list>
-	    ]]>
+        ]]>
     </sql>
-    
+
+    <sql id="select_column">
+	     <![CDATA[
+	        <#list table.columns as column>
+	        	${column.sqlName} <#if column_has_next>,</#if>
+	        </#list>
+	    ]]>	 		
+	</sql>
+	
+	<sql id="query${className}Page_where">
+		from ${table.sqlName} 
+		where  1 = 1	
+		and is_delete = 0
+	</sql>
     
     <!-- ======================================================================== 
       SELECT 
@@ -47,6 +60,22 @@
       and <#list table.columns as column><#if column.pk>${column.sqlName}</#if></#list> != 0
       ]]>
     </select>
+    
+    <!--分页查询-->
+    <select id="query${className}Page" parameterClass="query${className}Vo"
+		resultMap="voResultMap">
+		<include refid="Page_SqlMap.pagePrefix"/>
+			select 
+			<include refid="${classNameLower}.select_column"/>
+			<include refid="${classNameLower}.query${className}Page_where"/>
+		<include refid="Page_SqlMap.pageSuffix"/>
+	</select>
+	
+	<!--查询数据条数-->
+	<select id="query${className}Page_count" parameterClass="query${className}Vo"  resultClass="java.lang.Integer">
+		select count(*)
+		<include refid="query${className}Page_where"/>
+	</select>
 	
 	<!--通过Ids查询多条记录-->
 	<select id="getByIds" resultMap="BaseResultMap" parameterClass="${classNameLower}">
@@ -60,14 +89,14 @@
         select <include refid="Base_Column_List"/>
         from ${table.sqlName} where is_delete = 0
         <dynamic>
-            <#list table.columns as column>
+        <#list table.columns as column>
             <isNotEmpty property="${column.columnNameLower}" prepend="and">
                 <![CDATA[ ${column.sqlName} = #${column.columnNameLower}# ]]>
             </isNotEmpty>
-            </#list>
+        </#list>
         </dynamic>
     </select>
-    <!-- ======================================================================== 
+    <!-- ========================================================================
       DELETE 
     ========================================================================= -->
     <!--删除（物理）-->
@@ -97,7 +126,7 @@
         <dynamic prepend="(" >
         <#list table.columns as column>
             <isNotNull prepend="," property="${column.columnNameLower}" >
-        	<![CDATA[ #${column.columnNameLower}#]]>
+        	<![CDATA[ #${column.columnNameLower}#  ]]>
         	</isNotNull>
         </#list>   
         )     
@@ -146,3 +175,7 @@
     </update>
     
   </sqlMap>
+
+ <!-- ========================================================================
+    自定义sql
+  ========================================================================= -->
