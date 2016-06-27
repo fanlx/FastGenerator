@@ -6,7 +6,7 @@
 使用方法：
 
 1、更改generator.xml中的配置信息
-   
+```
 <!--更改基础包位置--><br/>
 <entry key="basePackage">com.carme.car</entry><br/>
 <!--生成文件的位置--><br/>
@@ -19,5 +19,6 @@
 <entry key="tables">e_coupons,e_coupons_consume,e_coupons_limit_category,e_coupons_limit_product,e_coupons_store</entry><br/>
 <!--是否生成数据源中所有的表--><br/>
 <entry key="allSwitch">false</entry><br/>
+```
 	
 2、运行test包中的GeneratorServer.java
