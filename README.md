@@ -1,4 +1,4 @@
-# carme-generator
+# fast-generator
 特点：<br/>
 1、可以自动去除表的前缀和字段的前缀 <br/>
 2、配置简单，使用灵活
