@@ -1,0 +1,13 @@
+#需要忽略的文件
+*.class
+*.iml
+*.jar
+*.war
+*.ear
+
+#需要忽略的目录
+target
+.idea
+.git
+output
+
