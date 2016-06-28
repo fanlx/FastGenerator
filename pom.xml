@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>jar</packaging>
 
-  <name>fast-generator</name>
+  <name>FastGenerator</name>
   <groupId>com.fastgenerator</groupId>
-  <artifactId>fast-generator</artifactId>
+  <artifactId>FastGenerator</artifactId>
   <version>1.0-SNAPSHOT</version>
 
 
